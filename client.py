@@ -3,11 +3,18 @@
 import socket
 import threading
 import pyaudio
+import signal
+import sys
+import time
 
 class Client:
+    def handler(signum,f):
+        print(signum)
+        sys.exit()
+
+    signal.signal(signal.SIGINT, handler)
     def __init__(self):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        
         while 1:
             try:
                 self.target_ip = input('Enter IP address of server --> ')
